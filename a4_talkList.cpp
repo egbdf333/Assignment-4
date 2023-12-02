@@ -49,6 +49,10 @@ void TalkList::saveTalksToFile(const std::string filename) {
     
 }
 
+void TalkList::clearVector() {
+    talkEntries.clear();
+}
+
 void TalkList::loadTalks(std::string filename) {
     int hours;
     int minutes;

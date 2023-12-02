@@ -13,3 +13,8 @@ Talk* createTalk(short hours, short minutes, short seconds, const std::string ti
     Talk* currentTalk = new Talk{hours, minutes, seconds, title, overview};
     return currentTalk;
 }
+
+void printTalk(const Talk* talk) {
+    std::cout << talk->hours << 'h' << talk->minutes << "m" << talk->seconds << "s\n";
+    std::cout << talk->title << '\n' << talk->overview << endl;
+}

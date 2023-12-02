@@ -1,3 +1,5 @@
+// Linus Pui | 301554378 | lpa44@sfu.ca
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -28,11 +30,11 @@ void printOptions() {
 int main() {
     printBanner();
     int optionNumber = 0;
-    ifstream talksFile;
-    string fileName;
+    std::ifstream talksFile;
+    std::string fileName;
     TalkList myTalks;
     int numberOfTalks;
-
+    std::string searchTitle;
 
     // interface
     while (optionNumber != -1) {
@@ -43,10 +45,6 @@ int main() {
         switch (optionNumber) {
             case 1: // load file
             {
-                if (talksFile.is_open()) {
-                    // clear memory
-                    talksFile.close();
-                }
                 std::cout << "Enter the full name of the file (with extension: abc.txt): ";
                 std::cin >> fileName;
                 if (fileName.empty()) {
@@ -56,18 +54,35 @@ int main() {
                 if (!myFile) {
                     std::cerr << "Error in opening the file. Please check if it is available.\n";
                 }
+                myTalks.clearVector();
                 myTalks.loadTalks(fileName);
                 numberOfTalks = myTalks.getSize();
                 std::cout << numberOfTalks << " entries loaded.\n";
                 myFile.close();
-
                 break;
             }
             case 2: // sort by duration
+                if (numberOfTalks == 0) {
+                    std::cerr << "No file/entries loaded.\n";
+                    break;
+                }
+                myTalks.listTalksByDuration();
                 break;
             case 3: // sort by title
+                if (numberOfTalks == 0) {
+                    std::cerr << "No file/entries loaded.\n";
+                    break;
+                }
+                myTalks.listTalksByTitle();
                 break;
             case 4: // look up a talk
+                if (numberOfTalks == 0) {
+                    std::cerr << "No file/entries loaded.\n";
+                    break;
+                }
+                std::cout << "What is the title of the talk, enter in part or as a whole (50 characters max.)? ";
+                getline(cin, searchTitle, '\n');
+                myTalks.listTalksContainingTitle(searchTitle);
                 break;
             case 5: // add a talk
                 break;
@@ -84,6 +99,7 @@ int main() {
                 break;
         }
     }
+
 
     talksFile.close();
     return 0;
