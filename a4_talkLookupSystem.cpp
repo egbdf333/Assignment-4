@@ -35,6 +35,11 @@ int main() {
     TalkList myTalks;
     int numberOfTalks;
     std::string searchTitle;
+    short hours;
+    short minutes;
+    short seconds;
+    std::string title;
+    std::string overview;
 
     // interface
     while (optionNumber != -1) {
@@ -61,6 +66,7 @@ int main() {
                 myFile.close();
                 break;
             }
+
             case 2: // sort by duration
                 if (numberOfTalks == 0) {
                     std::cerr << "No file/entries loaded.\n";
@@ -68,6 +74,7 @@ int main() {
                 }
                 myTalks.listTalksByDuration();
                 break;
+
             case 3: // sort by title
                 if (numberOfTalks == 0) {
                     std::cerr << "No file/entries loaded.\n";
@@ -75,20 +82,42 @@ int main() {
                 }
                 myTalks.listTalksByTitle();
                 break;
+                
             case 4: // look up a talk
                 if (numberOfTalks == 0) {
                     std::cerr << "No file/entries loaded.\n";
                     break;
                 }
                 std::cout << "What is the title of the talk, enter in part or as a whole (50 characters max.)? ";
-                getline(cin, searchTitle, '\n');
+                cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+                getline(cin, searchTitle);
                 myTalks.listTalksContainingTitle(searchTitle);
                 break;
+
             case 5: // add a talk
+                std::cout << "What is the number of hours (input 0 or more and press enter)? ";
+                std::cin >> hours;
+                std::cout << endl;
+                std::cout << "What is the number of minutes (input 0-59 and press enter)? ";
+                std::cin >> minutes;
+                std::cout << endl;
+                std::cout << "What is the number of seconds (input 0-59 and press enter)? ";
+                std::cin >> seconds;
+                std::cout << endl;
+                std::cout << "What is the title of the talk? ";
+                std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+                getline(cin, title);
+                std::cout << "What is the overview of the talk? ";
+                cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
+                getline(cin, overview);
+                myTalks.insertTalk(hours, minutes, seconds, title, overview);
+
                 break;
+
             case 6: // save talks file to a file with name as input (can overwrite)
                 break;
-            case 7: // exit program, set optionNumber to 8
+
+            case 7: // exit program, set optionNumber to -1
                 std::cout << "Thank you for using the Talk Lookup System!\n";
                 optionNumber = -1;
                 break;

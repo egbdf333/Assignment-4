@@ -31,7 +31,6 @@ void TalkList::listTalksByDuration() {
     for (Talk* talk : talkEntries) {
         std::cout << "Talk #" << counter << '\n';
         printTalk(talk);
-        std::cout << "================================\n";
         counter++;
     }
 }
@@ -43,7 +42,6 @@ void TalkList::listTalksByTitle() {
     for (Talk* talk : talkEntries) {
         std::cout << "Talk #" << counter << '\n';
         printTalk(talk);
-        std::cout << "================================\n";
         counter++;
     }
 }
@@ -51,11 +49,22 @@ void TalkList::listTalksByTitle() {
 //create and insert a Talk entry to the list
 void TalkList::insertTalk(short hours, short minutes, short seconds, const std::string title, const std::string overview) {
 
+    
 }
 
 //list talks that have title containing the keyTitle as substring
 void TalkList::listTalksContainingTitle(const std::string keyTitle) {
-
+    int counter = 1;
+    for (Talk* talk : talkEntries) {
+        if (talk->title.find(keyTitle) != std::string::npos) {
+            std::cout << "Talk #" << counter << '\n';
+            printTalk(talk);
+            counter++;
+        }
+    }
+    if (counter == 1) {
+        std::cout << "No such talk on record.\n";
+    }
 }
 
 //save all the talks into a file using the sample format
@@ -91,9 +100,12 @@ void TalkList::loadTalks(std::string filename) {
         //line 3
         myFile.ignore(std::numeric_limits<std::streamsize>::max(), ' ');
         getline(myFile, overview, '\n');
+        //skip line 4
         myFile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         Talk* myTalk = createTalk(hours, minutes, seconds, title, overview);
         talkEntries.push_back(myTalk);
     }
+    //handles issue with the last talk being pushed into the vector twice
+    talkEntries.pop_back();
 }
 
