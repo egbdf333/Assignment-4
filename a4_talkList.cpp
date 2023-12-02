@@ -26,12 +26,26 @@ int TalkList::getSize() {
 
 //list talks sorted by duration
 void TalkList::listTalksByDuration() {
-
+    sort(talkEntries.begin(), talkEntries.end(), compareTalksByDuration);
+    int counter = 1;
+    for (Talk* talk : talkEntries) {
+        std::cout << "Talk #" << counter << '\n';
+        printTalk(talk);
+        std::cout << "================================\n";
+        counter++;
+    }
 }
 
 //list talks sorted by title
 void TalkList::listTalksByTitle() {
-
+    sort(talkEntries.begin(), talkEntries.end(), compareTalksByTitle);
+    int counter = 1;
+    for (Talk* talk : talkEntries) {
+        std::cout << "Talk #" << counter << '\n';
+        printTalk(talk);
+        std::cout << "================================\n";
+        counter++;
+    }
 }
 
 //create and insert a Talk entry to the list

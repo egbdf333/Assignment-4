@@ -18,3 +18,23 @@ void printTalk(const Talk* talk) {
     std::cout << talk->hours << 'h' << talk->minutes << "m" << talk->seconds << "s\n";
     std::cout << talk->title << '\n' << talk->overview << endl;
 }
+
+bool compareTalksByDuration(const Talk* p1, const Talk* p2) {
+    int talk1 = ((p1->hours * 60) + p1->minutes) * 60 + p1->seconds;
+    int talk2 = ((p2->hours * 60) + p2->minutes) * 60 + p2->seconds;
+    bool isGreater = false;
+    if (talk2 > talk1) {
+        isGreater = true;
+    }
+    return isGreater;
+}
+
+bool compareTalksByTitle(const Talk* p1, const Talk* p2) {
+    std::string talk1 = p1->title;
+    std::string talk2 = p2->title;
+    bool isGreater = false;
+    if (talk2 > talk1) {
+        isGreater = true;
+    }
+    return isGreater;
+}
