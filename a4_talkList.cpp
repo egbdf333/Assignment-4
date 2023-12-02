@@ -1,6 +1,6 @@
 #include <limits>
 #include "a4_talkList.hpp"
-#include "a4_talklib.hpp"
+// #include "a4_talklib.hpp"
 
 // constructor
 TalkList::TalkList() {
@@ -13,31 +13,36 @@ TalkList::~TalkList() {
 }
 
 //return the size of the list (i.e., number of talks)
-int getSize() {
+int TalkList::getSize() {
     return 0;
 }
 
 //list talks sorted by duration
-void listTalksByDuration() {
+void TalkList::listTalksByDuration() {
 
 }
 
 //list talks sorted by title
-void listTalksByTitle() {
+void TalkList::listTalksByTitle() {
 
 }
 
 //create and insert a Talk entry to the list
-void insertTalk(short hours, short minutes, short seconds, const string title, const string overview) {
+void TalkList::insertTalk(short hours, short minutes, short seconds, const std::string title, const std::string overview) {
 
 }
 
 //list talks that have title containing the keyTitle as substring
-void listTalksContainingTitle(const string keyTitle) {
+void TalkList::listTalksContainingTitle(const std::string keyTitle) {
 
 }
 
 //save all the talks into a file using the sample format
-void saveTalksToFile(const string filename) {
+void TalkList::saveTalksToFile(const std::string filename) {
     
 }
+
+void TalkList::loadTalks(string filename) {
+    
+}
+

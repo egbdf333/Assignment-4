@@ -62,4 +62,5 @@ bool compareTalksByDuration(const Talk *p1, const Talk *p2);
 //helper function for sort to compare talks by title (string)
 bool compareTalksByTitle(const Talk *p1, const Talk *p2);
 
+
 #endif

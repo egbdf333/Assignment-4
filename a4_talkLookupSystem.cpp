@@ -3,7 +3,7 @@
 #include <fstream>
 #include <ios>
 #include <limits>
-#include "a4_talklib.hpp"
+// #include <a4_talklib.hpp>
 #include "a4_talkList.hpp"
 using namespace std;
 
@@ -30,7 +30,7 @@ int main() {
     int optionNumber = 0;
     ifstream talksFile;
     string fileName;
-    TalkList* myTalks = new TalkList();
+    TalkList myTalks;
 
 
     // interface
@@ -38,13 +38,7 @@ int main() {
         optionNumber = 0;
         printOptions();
         std::cin >> optionNumber;
-        // while (!std::cin.good()){
-        //     std::cin.clear();
-        //     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        //     std::cout << "Please enter a valid option.\n";
-        //     printOptions();
-        //     std::cin >> optionNumber;
-        // }
+
         switch (optionNumber) {
             case 1: // load file
                 if (talksFile.is_open()) {
@@ -62,6 +56,8 @@ int main() {
                         std::cout << "Error in opening the file. Please check if it is available.\n";
                     }
                 }
+
+                myTalks.loadTalks(fileName);
                 break;
             case 2: // sort by duration
                 break;

@@ -35,13 +35,17 @@ class TalkList {
         // first use createTalk to create a Talk entry,
         // then use the push_back method of vector to insert
         void insertTalk(short hours, short minutes, short seconds,
-                            const string title, const string overview);
+                            const std::string title, const std::string overview);
         //list talks that have title containing the keyTitle as substring
         // use the find method of string for matching, look up string::npos
         // reference: https://cplusplus.com/reference/string/string/find/
-        void listTalksContainingTitle(const string keyTitle);
+        void listTalksContainingTitle(const std::string keyTitle);
         //save all the talks into a file using the sample format
-        void saveTalksToFile(const string filename);
+        void saveTalksToFile(const std::string filename);
+
+        void loadTalks(string filename);
+
+        Talk* lookupTalkByTitle();
 };
 
 #endif
