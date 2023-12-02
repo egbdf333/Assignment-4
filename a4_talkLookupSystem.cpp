@@ -31,6 +31,7 @@ int main() {
     ifstream talksFile;
     string fileName;
     TalkList myTalks;
+    int numberOfTalks;
 
 
     // interface
@@ -41,6 +42,7 @@ int main() {
 
         switch (optionNumber) {
             case 1: // load file
+            {
                 if (talksFile.is_open()) {
                     // clear memory
                     talksFile.close();
@@ -50,15 +52,17 @@ int main() {
                 if (fileName.empty()) {
                     std::cout << "Error in opening the file. Please check if it is available.\n";
                 }
-                else {
-                    talksFile.open(fileName);
-                    if (!talksFile.is_open()) {
-                        std::cout << "Error in opening the file. Please check if it is available.\n";
-                    }
+                std::ifstream myFile(fileName);
+                if (!myFile) {
+                    std::cerr << "Error in opening the file. Please check if it is available.\n";
                 }
-
                 myTalks.loadTalks(fileName);
+                numberOfTalks = myTalks.getSize();
+                std::cout << numberOfTalks << " entries loaded.\n";
+                myFile.close();
+
                 break;
+            }
             case 2: // sort by duration
                 break;
             case 3: // sort by title

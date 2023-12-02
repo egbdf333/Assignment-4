@@ -1,4 +1,9 @@
+// Linus Pui | 301554378 | lpa44@sfu.ca
+
 #include <limits>
+#include <iostream>
+#include <string>
+#include <fstream>
 #include "a4_talkList.hpp"
 // #include "a4_talklib.hpp"
 
@@ -14,7 +19,9 @@ TalkList::~TalkList() {
 
 //return the size of the list (i.e., number of talks)
 int TalkList::getSize() {
-    return 0;
+    int size;
+    size = talkEntries.size();
+    return size;
 }
 
 //list talks sorted by duration
@@ -42,7 +49,33 @@ void TalkList::saveTalksToFile(const std::string filename) {
     
 }
 
-void TalkList::loadTalks(string filename) {
-    
+void TalkList::loadTalks(std::string filename) {
+    int hours;
+    int minutes;
+    int seconds;
+    int result;
+    string title;
+    string overview;
+    std::ifstream myFile(filename);
+
+    while(myFile) {
+        //line 1
+        myFile.ignore(std::numeric_limits<std::streamsize>::max(), ' ');
+        myFile >> hours;
+        myFile.ignore(std::numeric_limits<std::streamsize>::max(), ',');
+        myFile >> minutes;
+        myFile.ignore(std::numeric_limits<std::streamsize>::max(), ',');
+        myFile >> seconds;
+        myFile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        // line 2
+        myFile.ignore(std::numeric_limits<std::streamsize>::max(), '\"');
+        getline(myFile, title, '\"');
+        //line 3
+        myFile.ignore(std::numeric_limits<std::streamsize>::max(), ' ');
+        getline(myFile, overview, '\n');
+        myFile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        Talk* myTalk = createTalk(hours, minutes, seconds, title, overview);
+        talkEntries.push_back(myTalk);
+    }
 }
 

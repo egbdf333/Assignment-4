@@ -43,7 +43,7 @@ class TalkList {
         //save all the talks into a file using the sample format
         void saveTalksToFile(const std::string filename);
 
-        void loadTalks(string filename);
+        void loadTalks(std::string filename);
 
         Talk* lookupTalkByTitle();
 };
