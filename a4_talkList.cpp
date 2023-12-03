@@ -59,7 +59,7 @@ void TalkList::insertTalk(short hours, short minutes, short seconds, const std::
 
 //list talks that have title containing the keyTitle as substring
 void TalkList::listTalksContainingTitle(const std::string keyTitle) {
-    int counter = 1;
+    int counter = 0;
     for (Talk* talk : talkEntries) {
         if (talk->title.find(keyTitle) != std::string::npos) {
             std::cout << "Talk #" << counter << '\n';
@@ -75,11 +75,14 @@ void TalkList::listTalksContainingTitle(const std::string keyTitle) {
 //save all the talks into a file using the sample format
 void TalkList::saveTalksToFile(const std::string filename) {
     ofstream toFile(filename);
+    int counter = 1;
     for (Talk* talk : talkEntries) {
         toFile << "**Duration:** " << talk->hours << " hours, " << talk->minutes << " minutes, " << talk->seconds << " seconds\n";
         toFile << "**Talk Title:** \"" << talk->title << "\"\n";
         toFile << "**Overview:** " << talk->overview << "\n---\n";
+        counter++;
     }
+    std::cout << counter << " entries saved.\n";
 }
 
 void TalkList::clearVector() {
