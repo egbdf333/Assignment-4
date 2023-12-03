@@ -39,3 +39,9 @@ bool compareTalksByTitle(const Talk* p1, const Talk* p2) {
     }
     return isGreater;
 }
+
+void deleteTalk(Talk* talk) {
+    if (talk != std::nullptr_t) {
+        delete talk;
+    }
+}

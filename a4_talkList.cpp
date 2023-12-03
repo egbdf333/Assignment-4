@@ -14,7 +14,10 @@ TalkList::TalkList() {
 
 // destrctor
 TalkList::~TalkList() {
-
+    for (Talk* talk : talkEntries) {
+        deleteTalk(talk);
+    }
+    clearVector();
 }
 
 //return the size of the list (i.e., number of talks)
