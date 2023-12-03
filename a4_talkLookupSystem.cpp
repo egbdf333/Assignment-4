@@ -40,6 +40,7 @@ int main() {
     short seconds;
     std::string title;
     std::string overview;
+    std::string newFileName;
 
     // interface
     while (optionNumber != -1) {
@@ -142,12 +143,26 @@ int main() {
                 getline(cin, overview);
                 std::cin.clear();
                 myTalks.insertTalk(hours, minutes, seconds, title, overview);
-
                 break;
 
             case 6: // save talks file to a file with name as input (can overwrite)
+            {
+                std::cout << "Enter the full name of the save file (with extension): ";
+                cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                getline(std::cin, newFileName);
+                cin.clear();
+                ofstream toFile(newFileName);
+                if (!toFile) {
+                    std::cerr << "Error in opening the file. Please check if it is available.\n";
+                    break;
+                }
+                else {
+                    myTalks.saveTalksToFile(newFileName);
+                    toFile.close();
+                }
                 break;
-
+            }
             case 7: // exit program, set optionNumber to -1
                 std::cout << "Thank you for using the Talk Lookup System!\n";
                 optionNumber = -1;

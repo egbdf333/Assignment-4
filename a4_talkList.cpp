@@ -74,7 +74,12 @@ void TalkList::listTalksContainingTitle(const std::string keyTitle) {
 
 //save all the talks into a file using the sample format
 void TalkList::saveTalksToFile(const std::string filename) {
-    
+    ofstream toFile(filename);
+    for (Talk* talk : talkEntries) {
+        toFile << "**Duration:** " << talk->hours << " hours, " << talk->minutes << " minutes, " << talk->seconds << " seconds\n";
+        toFile << "**Talk Title:** \"" << talk->title << "\"\n";
+        toFile << "**Overview:** " << talk->overview << "\n---\n";
+    }
 }
 
 void TalkList::clearVector() {
