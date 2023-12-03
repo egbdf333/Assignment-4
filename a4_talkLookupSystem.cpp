@@ -89,27 +89,58 @@ int main() {
                     break;
                 }
                 std::cout << "What is the title of the talk, enter in part or as a whole (50 characters max.)? ";
-                cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
-                getline(cin, searchTitle);
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                getline(std::cin, searchTitle);
                 myTalks.listTalksContainingTitle(searchTitle);
                 break;
 
             case 5: // add a talk
-                std::cout << "What is the number of hours (input 0 or more and press enter)? ";
-                std::cin >> hours;
+                while (true) {
+                    std::cout << "What is the number of hours (input 0 or more and press enter)? ";
+                    std::cin >> hours;   
+                    if (hours < 0) {
+                        std::cout << "Invalid input.\n";
+                        std::cin.clear();
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    }
+                    else {
+                        break;
+                    }                 
+                }
                 std::cout << endl;
-                std::cout << "What is the number of minutes (input 0-59 and press enter)? ";
-                std::cin >> minutes;
+                while (true) {
+                    std::cout << "What is the number of minutes (input 0-59 and press enter)? ";
+                    std::cin >> minutes;   
+                    if (minutes < 0 || minutes > 60) {
+                        std::cout << "Invalid input.\n";
+                        std::cin.clear();
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    }
+                    else {
+                        break;
+                    }                 
+                }
                 std::cout << endl;
-                std::cout << "What is the number of seconds (input 0-59 and press enter)? ";
-                std::cin >> seconds;
+                while (true) {
+                    std::cout << "What is the number of seconds (input 0-59 and press enter)? ";
+                    std::cin >> seconds;   
+                    if (seconds < 0 || seconds > 60) {
+                        std::cout << "Invalid input.\n";
+                        std::cin.clear();
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    }
+                    else {
+                        break;
+                    }                 
+                }
                 std::cout << endl;
                 std::cout << "What is the title of the talk? ";
                 std::cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
                 getline(cin, title);
+                std::cin.clear();
                 std::cout << "What is the overview of the talk? ";
-                cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n');
                 getline(cin, overview);
+                std::cin.clear();
                 myTalks.insertTalk(hours, minutes, seconds, title, overview);
 
                 break;

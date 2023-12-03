@@ -48,8 +48,13 @@ void TalkList::listTalksByTitle() {
 
 //create and insert a Talk entry to the list
 void TalkList::insertTalk(short hours, short minutes, short seconds, const std::string title, const std::string overview) {
-
-    
+    Talk* currentTalk = createTalk(hours, minutes, seconds, title, overview);
+    talkEntries.push_back(currentTalk);
+    std::cout << "You have entered: " << hours << 'h' << minutes << 'm' << seconds << "s\n";
+    std::cout << "Title: " << title << endl;
+    std::cout << "Overview: " << overview << endl;
+    int size = getSize();
+    std::cout << size << " entries are currently loaded.\n";
 }
 
 //list talks that have title containing the keyTitle as substring
