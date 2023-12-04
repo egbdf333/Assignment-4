@@ -1,5 +1,5 @@
 // Linus Pui | 301554378 | lpa44@sfu.ca
-
+#include <vector>
 #include <limits>
 #include <iostream>
 #include <string>
@@ -14,10 +14,15 @@ TalkList::TalkList() {
 
 // destrctor
 TalkList::~TalkList() {
+    // int size = getSize();
+    // int counter = 0;
     for (Talk* talk : talkEntries) {
         deleteTalk(talk);
+        // counter++;
     }
+    // std::cout << counter << " out of " << size << " deleted";
     clearVector();
+    talkEntries.shrink_to_fit();
 }
 
 //return the size of the list (i.e., number of talks)
@@ -78,14 +83,21 @@ void TalkList::listTalksContainingTitle(const std::string keyTitle) {
 //save all the talks into a file using the sample format
 void TalkList::saveTalksToFile(const std::string filename) {
     ofstream toFile(filename);
-    int counter = 1;
-    for (Talk* talk : talkEntries) {
-        toFile << "**Duration:** " << talk->hours << " hours, " << talk->minutes << " minutes, " << talk->seconds << " seconds\n";
-        toFile << "**Talk Title:** \"" << talk->title << "\"\n";
-        toFile << "**Overview:** " << talk->overview << "\n---\n";
-        counter++;
+    int counter = 0;
+    if (!toFile.is_open()) {
+        std::cout << "Error in opening the file. Check if it is available.\n";
     }
-    std::cout << counter << " entries saved.\n";
+    else {
+        for (Talk* talk : talkEntries) {
+            toFile << "**Duration:** " << talk->hours << " hours, " << talk->minutes << " minutes, " << talk->seconds << " seconds\n";
+            toFile << "**Talk Title:** \"" << talk->title << "\"\n";
+            toFile << "**Overview:** " << talk->overview << "\n---\n";
+            counter++;
+        }
+        std::cout << counter << " entries saved.\n";
+    }
+    toFile.close();
+
 }
 
 void TalkList::clearVector() {
@@ -96,7 +108,6 @@ void TalkList::loadTalks(std::string filename) {
     int hours;
     int minutes;
     int seconds;
-    int result;
     string title;
     string overview;
     std::ifstream myFile(filename);
@@ -121,7 +132,16 @@ void TalkList::loadTalks(std::string filename) {
         Talk* myTalk = createTalk(hours, minutes, seconds, title, overview);
         talkEntries.push_back(myTalk);
     }
+    myFile.close();
     //handles issue with the last talk being pushed into the vector twice
+    Talk* tempTalk;
+    tempTalk = talkEntries.back();
+    delete tempTalk;
     talkEntries.pop_back();
+
 }
 
+bool TalkList::vectorEmpty() {
+    bool vectorEmp = talkEntries.empty();
+    return vectorEmp;
+}

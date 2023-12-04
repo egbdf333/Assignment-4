@@ -41,7 +41,7 @@ bool compareTalksByTitle(const Talk* p1, const Talk* p2) {
 }
 
 void deleteTalk(Talk* talk) {
-    if (talk != std::nullptr_t) {
+    if (talk != nullptr) {
         delete talk;
     }
 }

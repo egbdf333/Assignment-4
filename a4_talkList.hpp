@@ -46,6 +46,7 @@ class TalkList {
         void clearVector();
 
         void loadTalks(std::string filename);
+        bool vectorEmpty();
 };
 
 #endif

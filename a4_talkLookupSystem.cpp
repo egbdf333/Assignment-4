@@ -28,9 +28,11 @@ void printOptions() {
 }
 
 int main() {
+    int talkSize = sizeof(Talk);
+    std::cout << talkSize << endl;
     printBanner();
     int optionNumber = 0;
-    std::ifstream talksFile;
+
     std::string fileName;
     TalkList myTalks;
     int numberOfTalks;
@@ -164,9 +166,15 @@ int main() {
                 break;
             }
             case 7: // exit program, set optionNumber to -1
+            {
                 std::cout << "Thank you for using the Talk Lookup System!\n";
+                myTalks.~TalkList();
+                bool vectorEmpty = myTalks.vectorEmpty();
+                std::cout << vectorEmpty;
+
                 optionNumber = -1;
                 break;
+            }
             default:
                 std::cout << "Invalid input. Please try again\n";
                 std::cin.clear();
@@ -174,8 +182,8 @@ int main() {
                 break;
         }
     }
+    
 
-
-    talksFile.close();
+    
     return 0;
 }
